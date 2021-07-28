@@ -69,3 +69,11 @@ Organisms는 서로 비슷하거나 아니면 서로 상이한 분자 유형으�
 템플릿의 특정 인스턴스. 해당 템플릿에 알맞은 컴포넌트를 주입하게 된다면, template에서 미리 만들어 놓은 레이아웃에 맞게끔 사용할 수 있도록 된다.
 
 사용자 맥락에서 모든 것들을 살펴보면서 분자, 유기체 및 템플릿을 수정하여 실제 디자인의 context보다 더 나은 방법으로 개선할 수 있다.
+
+
+
+참조 링크
+
+- https://brunch.co.kr/@ultra0034/63
+- https://medium.com/@inthewalter/atomic-design-for-react-514660f93ba?
+- https://bradfrost.com/blog/post/atomic-web-design/#atoms
