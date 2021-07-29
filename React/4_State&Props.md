@@ -1,0 +1,84 @@
+# State & Props
+
+## 1. State
+
+컴포넌트 안에서 주어지는 데이터
+
+`state`가 `setState()`메소드로 변경될 때마다 `render()`가 호출된다.
+
+
+
+`this.state.~`를 사용 (`**useState**`를 나중에 사용)
+
+
+
+**State를 직접 수정하면 안된다.
+
+→ 예상치 못한 오류들이 많이 생길 수 있기 때문에, **state의 불변성을 유지**해야한다.
+
+
+
+## 2. Props
+
+컴포넌트 밖에서 주어지는 데이터
+
+컴포넌트의 재사용률을 높이기 위해 사용된다. 같은 컴퍼넌트를 여러번 사용하더라도, 각각의 `props`를 자식 컴퍼넌트에 줌으로써 상황에 맞게 UI를 보여줄 수 있다.
+
+
+
+`this.props.~`를 사용가능하나, **비구조화 할당**을 이용해 더 쉽게 props의 값을 사용할 수 있다.
+
+
+
+### 2.1 defaultProps
+
+컴포넌트에 props를 지정하지 않았을 경우, `defaultProps`로 기본값 설정 해줄 수 있다.
+
+```jsx
+import React from 'react';
+
+function Hello({ color, name }) {
+  return <div style={{ color }}>안녕하세요 {name}</div>
+}
+
+//기본값 설정!
+Hello.defaultProps = {
+  name: '이름없음'
+}
+
+export default Hello;
+
+//App.js에서 아래와 같이 호출
+<Hello name="react" color="red"/>
+<Hello color="pink"/>  //name 지정x -> name:'이름없음' 할당
+```
+
+
+
+### 2.2 props.children
+
+컴포넌트 태그 사이에 넣은 값을 조회하고 싶을 땐, props.children 을 조회
+
+```jsx
+import React from 'react';
+
+function Wrapper({ children }) {
+  const style = {
+    border: '2px solid black',
+    padding: '16px',
+  };
+  return (
+    <div style={style}>
+      {children}     //여기에 할당된다.
+    </div>
+  )
+}
+
+export default Wrapper;
+
+//APP.js에서 아래와 같이 불렀을 때 Wrappper 안의 내용 나온다.
+<Wrapper>
+  <Hello name="react" color="red"/>
+  <Hello color="pink"/>
+</Wrapper>
+```
