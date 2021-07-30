@@ -14,7 +14,6 @@ Fetch API를 이용하면 Request나 Response와 같은 HTTP의 파이프라인�
 
 - cross-site cookies를 받지 않는다. cross-site session을 설정할 수 없다.
 
-- 
 
 ```jsx
 fetch('<http://example.com/movies.json>')
