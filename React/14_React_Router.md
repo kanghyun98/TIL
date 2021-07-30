@@ -1,0 +1,219 @@
+# React Router
+
+Routing: HTTP requests(사용자가 요청하는 url 링크)를 어떤 특정한 페이지로 연결할 것인지 결정하는 메커니즘
+
+(라우팅: 다른 주소에 따라 다른 뷰를 보여주는것)
+
+
+
+## 1. SPA
+
+리액트는 SPA를 쉽게 구현할 수 있게 도와주는 라이브러리.
+
+**뷰 렌더링**을 유저의 **브라우저**가 담당하도록 하고, 우선 어플리케이션을 브라우저에 로드 한 다음에 정말 필요한 데이터만 전달받아 보여줌.
+
+(SPA는 Single Page Application, 즉 하나의 페이지를 가진 어플리케이션으로, 컴포넌트의 변경으로 동적인 페이지를 구현하는 방법이다.)
+
+전통적인 웹 어플리케이션 구조는 여러 페이지로 구성되어 있고, 유저가 요청할 때마다 새로고침되어, 페이지 로딩 시 서버로부터 리소스를 전달받아서 렌더링하는 방식이다. 렌더링하는것을 서버쪽에서 담당한다는것은, 그 만큼 렌더링을 위한 서버 자원이 사용되는것이고, 불필요한 트래픽도 낭비된다.
+
+
+
+## 2. SPA 문제점
+
+- 앱의 규모가 커지면 자바스크립트 파일 사이즈가 너무 커진다. (유저가 실제로 방문하지 않을수도 있는 페이지에 관련된 렌더링 관련 스크립트도 불러오기 때문)
+
+  → [Code Splitting](https://velog.io/@velopert/react-code-splitting)
+
+- 브라우저측에서 자바스크립트를 사용하여 라우트를 관리하는것의 잠재적인 단점은 자바스크립트를 실행하지 않는 일반 크롤러에선 페이지의 정보를 제대로 받아가지 못해, 검색엔진에서 페이지가 검색 결과에 잘 안나타날 수 있다.
+
+- 자바스크립트가 실행될때까지 페이지가 비어있기 때문에, 자바스크립트 파일이 아직 캐싱되지 않은 사용자는 아주 짧은 시간동안 흰 페이지가 나타날 수도 있다
+
+  → SSR (서버 사이드 렌더링)
+
+  
+
+## 3. 적용
+
+App.js
+
+```
+import { BrowserRouter } from 'react-router-dom';
+
+const App = () => {
+	return (
+    <>
+      <BrowserRouter>
+        <Header authService={authService} />
+        <Switch>
+          <Route exact path={["/", "/login"]}>
+            <Login authService={authService} />
+          </Route>
+          <Route path="/maker">
+            <Maker authService={authService} FileInput={FileInput} />
+          </Route>
+        </Switch>
+      </BrowserRouter>
+    </>
+  );
+};
+```
+
+
+
+## 4. 파라미터, 쿼리
+
+유동적인 값을 전달하는 경우
+
+```
+파라미터: /profiles/velopert
+쿼리: /about?details=true
+```
+
+일반적으로는 **파라미터**는 특정 id 나 이름을 가지고 조회를 할 때 사용하고, **쿼리**의 경우엔 어떤 키워드를 검색하거나, 요청을 할 때 필요한 옵션을 전달 할 때 사용
+
+
+
+### 4-1) 파라미터
+
+match 이용
+
+```jsx
+// App.js
+...
+<Route path="/profiles/**:username**" component={Profile} />
+...
+// Profile.js
+..
+const profileData = {
+  velopert: {
+    name: '김민준',
+    description:
+      'Frontend Engineer @ Laftel Inc. 재밌는 것만 골라서 하는 개발자'
+  },
+  gildong: {
+    name: '홍길동',
+    description: '전래동화의 주인공'
+  }
+};
+
+const Profile = ({ **match** }) => {
+  // 파라미터를 받아올 땐 match 안에 들어있는 params 값을 참조합니다.
+  const { username } = **match.params;**
+  const profile = profileData[username];
+  if (!profile) {
+    return <div>존재하지 않는 유저입니다.</div>;
+  }
+  return (
+    <div>
+      <h3>
+        {username}({profile.name})
+      </h3>
+      <p>{profile.description}</p>
+    </div>
+  );
+};
+```
+
+match는 라우터 통해서 컴포넌트 불러왓을 때 사용가능한 것으로, 아래와 같은 프로퍼티를 가지고 있다.
+
+- **params -** (object) Key/value pairs parsed from the URL corresponding to the dynamic segments of the path
+- **isExact -** (boolean) true if the entire URL was matched (no trailing characters)
+- **path** - (string) The path pattern used to match. Useful for building nested <Route>s
+- **url -** (string) The matched portion of the URL. Useful for building nested <Link>s
+
+
+
+### 4-2) 쿼리
+
+location 이용
+
+url에 옵션의 의미인 ?를 달아주고 쿼리문을 적어주면 location.search에 `"?쿼리문"`이 생긴다.
+
+이를 객체 형태로 변환하기 위해 `qs 라이브러리`를 이용한다.
+
+```jsx
+$ yarn add qs
+```
+
+about.js
+
+```jsx
+import React from 'react';
+import qs from 'qs';
+
+//쿼리: **about?detail=true**
+const About = ({ location }) => {
+  const query = qs.parse(location.search, {
+    ignoreQueryPrefix: true // ?없애줌
+  });
+
+//query는 {detail: 'true'}
+
+  const detail = query.detail === 'true'; // 쿼리의 파싱결과값은 문자열입니다.
+```
+
+> 만약 쿼리문이 `about?a=1&b=2&c=3` 이면, query는 { a: "1", b: "2", c: "3"} 가 된다.
+
+
+
+## 5. 서브 라우트
+
+라우트 내의 라우트
+
+컴포넌트 생성 후, 그 안에 또 Route 컴포넌트를 렌더링하면 된다.
+
+
+
+## 6. 부가 기능
+
+### history 객체
+
+라우트로 사용된 컴포넌트에게 match, location 과 함께 전달되는 props 중 하나
+
+이 객체를 통하여, 우리가 컴포넌트 내에 구현하는 메소드에서 **라우터에 직접 접근**을 할 수 있다. (뒤로가기, 특정 경로로 이동, 이탈 방지 등)
+
+### withRouter
+
+라우트 컴포넌트가 아닌곳에서 match / location / history 를 사용해야 할 때
+
+```jsx
+import { withRouter } from 'react-router-dom';
+
+const WithRouterSample = ({ location, match, history }) => {
+  return (
+    <div>
+      <h4>location</h4>
+      <textarea value={JSON.stringify(location, null, 2)} readOnly />
+      <h4>match</h4>
+      <textarea value={JSON.stringify(match, null, 2)} readOnly />
+      <button onClick={() => history.push('/')}>홈으로</button>
+    </div>
+  );
+};
+```
+
+### Switch
+
+Switch 는 여러 Route 들을 감싸서 그 중 규칙이 일치하는 라우트 단 하나만을 렌더링시켜준다. Switch 를 사용하면, 아무것도 일치하지 않았을때 보여줄 Not Found 페이지를 구현 할 수도 있다.
+
+### NavLink
+
+NavLink 는 Link 랑 비슷한데, 만약 현재 경로와 Link 에서 사용하는 경로가 일치하는 경우 특정 스타일 혹은 클래스를 적용 할 수 있는 컴포넌트입니다.
+
+```jsx
+<NavLink
+   to="/profiles/velopert"
+   activeStyle={{ background: 'black', color: 'white' }}
+>
+   velopert
+</NavLink>
+```
+
+
+
+참조 링크
+
+- https://react.vlpt.us/react-router/01-concepts.html
+- https://react.vlpt.us/react-router/02-params-and-query.html
+- https://react.vlpt.us/react-router/03-subroutes.html
+- https://react.vlpt.us/react-router/04-extra.html

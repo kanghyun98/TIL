@@ -3,7 +3,8 @@
 ### 기본 설치 
 
 ```
-$ npm init 
+// cmd에서
+$ npm init -y
 $ npm install -g typescript
 ```
 
@@ -12,6 +13,12 @@ $ npm install -g typescript
 ### 타입스크립트 설정파일 생성
 
 tsconfig.json 파일을 추가
+
+```
+$ tsc -init //자동 생성
+```
+
+
 
 ```json
 //tsconfig.json
@@ -24,13 +31,7 @@ tsconfig.json 파일을 추가
       "strict": true,
       "sourceMap": true,
       "outDir": "./dist"
-  },
-  "include": [ 				//?
-      "index.ts"
-  ],
-  "exclude": [
-      "node_modules"
-  ]
+  }
 }
 
 ```
@@ -50,13 +51,16 @@ tsconfig.json 파일을 추가
 
 ### 컴파일
 
-실행
+#### 실행
 
 ```typescript
 $ tsc // ts파일에 있는 index.ts를 컴파일해서 index.js, index.js.map을 만듦
+$ node dist/index  //index 파일 실행
 ```
 
 
+
+#### 간편한 실행
 
 `yarn start (or npm start)`를 이용할 때 자동으로 `tsc` 가 먼저 실행되게 하기 위해, `package.json` 파일에 아래를 추가해주면 된다.
 
@@ -69,7 +73,7 @@ $ tsc // ts파일에 있는 index.ts를 컴파일해서 index.js, index.js.map�
 
 
 
-### 결과 빠르게 확인 하는 방법
+#### 결과 빠르게 확인 하는 방법(더 간편한 실행)
 
 ```
 $ npm add tsc-watch --dev

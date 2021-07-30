@@ -15,19 +15,102 @@ Fetch API를 이용하면 Request나 Response와 같은 HTTP의 파이프라인�
 - cross-site cookies를 받지 않는다. cross-site session을 설정할 수 없다.
 
 
+
+## 사용법
+
+`fetch()` 함수는 첫번째 인자로 URL, 두번째 인자로 옵션 객체를 받고, Promise 타입의 객체를 반환한다. 반환된 객체는, API 호출이 성공했을 경우에는 응답(response) 객체를 resolve하고, 실패했을 경우에는 예외(error) 객체를 reject한다.
+
+
 ```jsx
-fetch('<http://example.com/movies.json>')
-  .then(function(response) {
-    return response.json();
-  })
-  .then(function(myJson) {
-    console.log(JSON.stringify(myJson));
-  });
+fetch(url, options)
+  .then(response => response.json())
+  .then(myJson => console.log(JSON.stringify(myJson));
+);
 ```
 
-`fetch()` 함수는 Promise 객체인 Response를 반환하고, 이 Response 객체는 body, header, ok, status, url 등을 포함하고 있다.
 
-그 중 `json()` 내장 함수가 있는데, 메서드 사용시 body 텍스트를 JSON 형식으로 바꾼 Promise를 반환해준다.
+
+### 1. GET
+
+fetch()는 기본적으로 **GET 방식**으로 작동한다.
+
+- 옵션(options) 객체에는 HTTP 방식(method), HTTP 요청 헤더(headers), HTTP 요청 전문(body) 등을 설정
+
+- `fetch()` 함수는 Promise 객체인 Response를 반환하고, 이 Response 객체는 body, header, ok, status, url 등을 포함하고 있다.
+
+  그 중 `json()` 내장 함수가 있는데, 메서드 사용시 body 텍스트를 JSON 형식으로 바꾼 Promise를 반환해준다.
+
+status: 200
+
+### 2. POST
+
+`method` 옵션을 `POST`로 지정해주고, `headers` 옵션을 통해 JSON 포멧을 사용한다고 알려줘야 하며, 요청 전문을 JSON 포멧으로 직렬화화여 가장 중요한 `body` 옵션에 설정
+
+```jsx
+fetch(url, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    title: "Test",
+    body: "I am testing!",
+    userId: 1,
+  }),
+})
+  .then((response) => response.json())
+  .then((data) => console.log(data));
+```
+
+status: 201
+
+### 3. PUT, DELETE
+
+PUT은 method 옵션만 PUT 설정한느 것 외에는 POST 방식과 흡사하다.
+
+DELETE는 보낼 데이터가 없으므로  headers와 body 옵션이 필요없다.
+
+```jsx
+fetch(url, {
+  method: "DELETE",
+})
+  .then((response) => response.json())
+  .then((data) => console.log(data));
+```
+
+
+
+### 모듈로 빼서 사용
+
+```jsx
+async function post(host, path, body, headers = {}) {
+  const url = `https://${host}/${path}`;
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      ...headers,
+    },
+    body: JSON.stringify(body),
+  };
+  const res = await fetch(url, options);
+  const data = await res.json();
+  if (res.ok) {
+    return data;
+  } else {
+    throw Error(data);
+  }
+}
+
+//사용
+post("jsonplaceholder.typicode.com", "posts", {
+  title: "Test",
+  body: "I am testing!",
+  userId: 1,
+})
+  .then((data) => console.log(data))
+  .catch((error) => console.log(error));
+```
 
 
 
