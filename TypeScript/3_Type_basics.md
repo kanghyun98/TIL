@@ -1,0 +1,188 @@
+# 타입
+
+## 1. 기본 타입 10가지
+
+```typescript
+// 1. 문자 (string)
+const str: string = 'hello';
+
+// 2. 숫자 (number)
+const num: number = 10;
+
+// 3. 배열 (Array)
+const arr: Array<number> = [1, 2 ,3];			// 배열 안에 number만 가능
+const heros: Array<string>	= ["Capt", "Hulk"]	// 배열 안에 string만 가능
+
+const items: number[] = [1, 2, 3]  				//간편하게
+
+// 4. 튜플 (배열 인덱스 별로 지정)
+const address: [string, number] = ["pangyo", 10]
+
+// 5. 객체 (obj)
+const obj: object = {};
+
+const person: {name: string, age: number} = {	//객체 하위요소
+   name: 'capt',
+   age: 24  
+}
+
+// 배열 안에 객체 (object[])
+let todoList: { id: number; title: string; done: boolean }[] = [
+  { id: 1, title: "todo 완성", done: false },
+  { id: 2, title: "TypeScript 마스터", done: false },
+];
+
+// 6. 진위값 (boolean)
+const show: boolean = true;
+
+// 7. 모든 타입
+const todo: any = "아무거나
+
+// 8. 특정 값들의 집합 (enum)
+enum Avengers {Capt, IronMan, Thor};
+const hero: Avengers = Avengers.Capt;
+
+let hero: Avengers = Avengers[0];	//인덱스로 접근
+
+// 9. 없을 때 (void)
+let unuseful: void = undefined;  	// 변수에는 undefined 와 null 만 할당 가능
+function notuse(): void {			// 함수에는 반환 값을 설정x
+    console.log('nothing')
+}
+
+// 10. 함수의 끝이 없음 (never)
+function neverEnd(): never {		// 이 함수는 절대 함수의 끝까지 실행되지 않는다는 의미
+  while (true) {
+
+  }
+}
+```
+
+
+
+## 2. 함수 타입
+
+- 함수의 파라미터 타입
+- 함수의 반환 타입
+- 함수의 구조 타입
+
+```typescript
+// 1. 함수의 파라미터, 반환값 타입 지정
+function sum(a: number, b: number): number {
+	return a + b;
+}
+
+sum(10, 20, 30, 40);	// error!, 파라미터 갯수를 제한하는 특징을 갖고있다.
+
+// 2. 험수의 옵셔널 파라미터 (? 추가)
+function log(a: string, b?: string) {
+    return a + b;
+}
+sum(10, 20, 30, 40)		// 30, 위 속성 무시
+
+// 3. rest 문법 적용 파라미터
+function sum(a: number, ...nums: number[]): number {
+  const totalOfNums = 0;
+  for (let key in nums) {
+    totalOfNums += nums[key];
+  }
+  return a + totalOfNums;
+}
+
+rest문법 참고자료: https://learnjs.vlpt.us/useful/07-spread-and-rest.html
+
+// 4. this
+interface Vue {
+  el: string;
+  count: number;
+  init(this: Vue): () => {};
+}
+
+let vm: Vue = {
+  el: '#app',
+  count: 10,
+  init: function(this: Vue) {
+    return () => {
+      return this.count;
+    }
+  }
+}
+
+let getCount = vm.init();
+let count = getCount();
+console.log(count); // 10
+```
+
+
+
+
+
+## 3. 연산자를 이용한 타입 정의
+
+### 3.1 Union Type
+
+장점: 타입 가드(특정 타입으로 타입 범위를 좁혀나가는 과정)이 가능하다.
+
+```typescript
+function logMessage(value: string | number) {
+  if (typeof value === 'string') {
+    value.toLocaleUpperCase();
+  }
+  if (typeof value === 'number') {
+    value.toLocaleString();
+  }
+  throw new TypeError('value must be string or number')
+}
+```
+
+
+
+유니온으로 인터페이스도 가져올 수 있는데, **타입 가드** 처리가 필요함 (intersection과의 차이점)
+
+```typescript
+interface Developer {
+  name: string;
+  skill: string;
+}
+
+interface Person {
+  name: string;
+  age: number;
+}
+
+function askSomeone(someone: Developer | Person) { 
+	//name,skill or name,age 둘 중 하나만 사용 가능
+}
+
+askSomeone({name: 'Alex', skill: '웹 개발'});
+askSomeone({name: 'Alex', age: 24});
+
+```
+
+
+
+### 3.2 Intersection Type
+
+```typescript
+interface Developer {
+  name: string;
+  skill: string;
+}
+
+interface Person {
+  name: string;
+  age: number;
+}
+
+function askSomeone(someone: Developer & Person) {
+  someone.name;
+  someone.age; 
+  someone.skill;	// 모두 사용
+}
+
+askSomeone({name: 'Alex', skill: '웹 개발'}); // error!
+askSomeone({name: 'Alex', skill: '웹 개발', age: 24}); // ok
+```
+
+
+

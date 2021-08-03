@@ -29,8 +29,8 @@ $ tsc -init //자동 생성
 
 {    
   "compilerOptions": {
-      "allowJS": true,
-      "checkJS": true,
+      "allowJs": true,
+      "checkJs": true,
       "noImplicitAny": true,
       "module": "commonjs",
       "target": "es5",
@@ -79,7 +79,7 @@ $ node dist/index  //index 파일 실행
 
 
 
-#### 결과 빠르게 확인 하는 방법(더 간편한 실행)
+#### 결과 빠르게 확인 하는 방법 (더 간편한 실행)
 
 ```
 $ npm add tsc-watch --dev
