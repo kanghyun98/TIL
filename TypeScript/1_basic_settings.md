@@ -31,27 +31,32 @@ $ tsc -init //자동 생성
   "compilerOptions": {
       "allowJs": true,
       "checkJs": true,
-      "noImplicitAny": true,
-      "module": "commonjs",
       "target": "es5",
+      "module": "commonjs",
       "esModuleInterop": true,
-      "strict": true,
       "sourceMap": true,
+      "strict": true,
+      "noImplicitAny": true,
       // "outDir": "./dist"
-  }
+  },
+  "include": [“**/*”]
 }
 
 ```
 
 
 
-- **target**: 컴파일된 코드가 어떤 **환경**에서 실행될 지 정의합니다. 예를 들어서 화살표 함수를 사용하고 target 을 es5 로 한다면 일반 function 키워드를 사용하는 함수로 변환을 해줍니다. 하지만 이를 es6 로 설정한다면 화살표 함수를 그대로 유지해줍니다.
+- **allowJS**: 자바스크립트 파일을 타입스크립트에서 사용할 수 있게 해줌.
+- **checkJS**: @ts-check와 같은 효과
+- **target**: 컴파일된 코드가 어떤 **환경**에서 실행될 지 정의. 예를 들어서 화살표 함수를 사용하고 target 을 es5 로 한다면 일반 function 키워드를 사용하는 함수로 변환. 하지만 이를 es6 로 설정한다면 화살표 함수를 그대로 유지.
 - **module**: 컴파일된 코드가 어떤 **모듈 시스템**을 사용할지 정의합니다. 예를 들어서 이 값을 common 으로 하면 `export default Sample` 을 하게 됐을 때 컴파일 된 코드에서는 `exports.default = helloWorld` 로 변환해주지만 이 값을 es2015 로 하면 `export default Sample` 을 그대로 유지하게 됩니다.  [(모듈 참고 자료)](https://ko.javascript.info/modules-intro)
 - **esModuleInterop**: commonjs 모듈 형태로 이루어진 파일을 es2015 모듈 형태로 불러올 수 있게 해줌 [(참고)](https://stackoverflow.com/questions/56238356/understanding-esmoduleinterop-in-tsconfig-file)
 - **strict**: 모든 타입 체킹 옵션을 활성화한다는 것을 의미
 - **sourceMap**: 어떤 파일들이 컴파일 과정에 포함되는지 TypeScript에게 알려주는 역할
 - **outDir**: 컴파일된 파일들이 저장되는 경로를 지정
 - **noImplicitAny**: any라도 넣어야한다.
+- **include**: 어떤 폴더를 대상으로 타입스크립트를 컴파일 시킬건지
+- **strict:** 더 강하게 점검. true 시, strict관련 옵션 다 활성화된다.
 
 
 

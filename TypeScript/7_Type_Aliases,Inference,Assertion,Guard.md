@@ -83,13 +83,21 @@ let x = 24;		//type: number
 let a;	// a: any
 a = 20;
 a = 'a';
-let b = a	// b: any -> 오잉 string이 아니네?
+let b = a	// b: any -> 오잉 string이 아니네? 타입 단언이 필요함
 let b = a as string;	// this is type assertion
+```
+
+```ts
+// strict모드에서 null에 대한 타입 단언
+abc = document.querySelector('.test');	// abc: null | Element
+abc.appendChild(test2);		// object is possibly 'null'
+
+abc!.appendChild(test2);	// !를 붙여주어 null이 아니라는 것을 알려준다.
 ```
 
 
 
-**DOM API** 조작 시에 많이 쓰인다.
+#### **DOM API** 조작 시에 많이 쓰인다.
 
 ```typescript
 <div id="app">hello</div>
@@ -101,6 +109,8 @@ let div = document.querySelector("div") as HTMLDivElement
 div.innerText;	// ok
 
 ```
+
+type assertion의 경우 위험한 점이 있어 사용 시 주의해야 한다.
 
 
 

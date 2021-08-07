@@ -120,8 +120,16 @@ package.json 파일의 "eslintConfig" 부분 변경
 - 기본 셋팅 후, 아래 명령어 실행
 
 ```
-$ npm i -D eslint eslint-config-airbnb eslint-config-prettier eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-prettier eslint-plugin-react eslint-plugin-react-hooks @typescript-eslint/parser @typescript-eslint/eslint-plugin prettier
+$ npm i -D eslint prettier typescript eslint-plugin-prettier eslint-config-prettier @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-import eslint-config-airbnb eslint-plugin-jsx-a11y eslint-plugin-react eslint-plugin-react-hooks  
 ```
+
+- babel까지 할거면
+
+```
+$ npm i -D @babel@babel/core @babel/preset-env @babel/preset-typescript
+```
+
+
 
 - .eslintrc , .prettierrc파일 생성
 
@@ -141,4 +149,55 @@ $ npm i -D eslint eslint-config-airbnb eslint-config-prettier eslint-plugin-impo
   /node_modules
   ```
 
-  
+
+
+
+### VSCode ESLint 플러그인 관련 설정
+
+1. VSCode의 [ESLint 플러그인](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) 설치
+2. VSCode에서 `ctrl` + `shift` + `p` / `cmd` + `shift` + `p` 키를 이용하여 명령어 실행 창 표시
+3. 명령어 실행 창에 `open settings (json)` 입력 후 선택 (Preferences: Open Settings (JSON))
+
+4. settings.json 파일에 추가
+
+   ```
+   {
+     // ... <-- 기존 내용을 꼭 유지한 상태에서 아래 내용을 추가하고 이 주석은 제거할 것
+     "editor.codeActionsOnSave": {
+         "source.fixAll.eslint": true
+     },
+     "eslint.alwaysShowStatus": true,
+     "eslint.workingDirectories": [
+         {"mode": "auto"}
+     ],
+     "eslint.validate": [
+         "javascript",
+         "typescript"
+     ],
+   }
+   ```
+
+   
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
