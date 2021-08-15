@@ -127,6 +127,16 @@ deps 에 특정 값을 넣게 된다면, 컴포넌트가 처음 마운트 될 �
 
 
 
+### useCallback vs useMemo
+
+- useCallback: Returns a [memoized](https://en.wikipedia.org/wiki/Memoization) callback.
+
+- useMemo: Returns a [memoized](https://en.wikipedia.org/wiki/Memoization) value.
+
+##### `useCallback(fn, deps)` = `useMemo(() => fn, deps)`
+
+
+
 # 규칙
 
 - 최상위(at the top level)에서만 Hook을 호출해야 한다. 반복문, 조건문, 중첩된 함수 내에서 Hook을 실행x
