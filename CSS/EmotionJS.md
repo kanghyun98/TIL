@@ -8,9 +8,16 @@
 
 CSS-in-JS 중 가장 인기있는 EmotionJS는 기존에 많이 쓰이던 styled-components과 유사하나, styled-components의 가장 큰 문제점인 번들 용량을 해결한 라이브러리이다.
 
+특징
+
+- className이 자동으로 부여되어 스타일이 겹치지 않는다.
+- 재사용 가능하다.
+- props, 조건 등에 따라 스타일을 다르게 할 수 있다.
+- 다양한 방법으로 css를 적용할 수 있다.
 
 
-### 설치
+
+### 설치 (Gatsby에서 사용)
 
 ```
 $ yarn add gatsby-plugin-emotion @emotion/react @emotion/styled
@@ -36,12 +43,11 @@ module.exports = {
 
 ### 사용법
 
-#### 1. 글로벌 스타일 지정
+#### 1. 글로벌 스타일 지정 (기본값 지정)
 
 `Global`이라는 컴포넌트를 이용
 
 ```tsx
-import styled from '@emotion/styled';
 import { Global, css } from '@emotion/react';
 
 ...
@@ -58,23 +64,22 @@ const globalStyle = css`	//Tagged Template Literal 방식
 
 ...
 
-const NextPage = () => {
-	return(
-		<div>
-        	<Global styles={globalStyle}/>
-            <h1>Hello</h1>
-        </div>
-	)
+const GlobalStyle = () => {
+	return <Global styles={globalStyle} />;
 }
+
+export default GlobalStyle;	// GlobalStyle Component 사용 시, 적용된다.
 ```
 
 
 
-#### 2. Tagged Template Literal 방식
+#### 2. Tagged Template Literal 방식 (css prop)
 
 Tagged Template Literal 방식으로 정의한 css
 
-```
+```tsx
+import { css } from '@emotion/react'
+
 const MyStyle = css`
 	font-size: 20px;
 	font-wieght: 600;
@@ -99,9 +104,11 @@ return(
 
 
 
-#### 3. Styled Component 생성 방법 (Tagged Template Literal 방식)
+#### 3. Styled Component 생성 방법** (Tagged Template Literal 방식)
 
-```
+```tsx
+import styled from '@emotion/styled'
+
 const Text1 = styled.div`
   font-size: 20px;
   font-weight: 700;
@@ -122,7 +129,7 @@ return(
 
 
 
-#### 4. Styled Component 생성 방법 (객체 방식)
+#### 4. Styled Component 생성 방법** (객체 방식)
 
 하이픈('-')을 이용한 css 정의하는 Kebab Case가 아닌, 단어를 이어붙이는 Camel Case를 사용해야 한다.
 
@@ -142,13 +149,13 @@ disabled이라는 Props를 받아 만약 참이면 글씨에 중간줄을 추가
 ```tsx
 ...
 
-const Text1 = styled.div<{ disable: boolean }>`
+const Text1 = styled.div`
   font-size: 20px;
   font-weight: 700;
   text-decoration: ${({ disable }) => (disable ? 'line-through' : 'none')};
 `;
 
-const Text2 = styled('div')<{ disable: boolean }>(({ disable }) => ({
+const Text2 = styled('div')(({ disable }) => ({
   fontSize: '15px',
   color: 'blue',
   textDecoration: disable ? 'line-through' : 'none',

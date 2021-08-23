@@ -32,3 +32,6 @@ Shallow Comparison을 기반으로 하기 때문에, 개발할 때 주의해야�
 export default React.memo(CreateUser);
 ```
 
+
+
+React Hook의 useMemo, useCallback과 유사한 기능?

@@ -11,7 +11,7 @@
 기본
 
 - gatsby-source-filesystem: 파일시스템에서 파일 읽어오기
-- gatsby-transformer-remak: 마크다운 파일 HTML이나 frontmatter로 변형
+- gatsby-transformer-remark: 마크다운 파일 HTML이나 frontmatter로 변형
 
 추가
 
@@ -224,6 +224,40 @@ fluid 이미지 불러오는 방식
 `gatsby-transformer-sharp` 라이브러리에서 제공하는 내장 Fragment를 [여기](https://www.gatsbyjs.com/plugins/gatsby-image/#gatsby-transformer-sharp)서 확인할 수 있다.
 
 그 중, 구글에서 만든 이미지 로딩 속도를 개선한 WebP 방식 이미지를 사용할 수 있는 `GatsbyImageSharpFluid_withWebp` 사용한 것
+
+
+
+## 마크다운 데이터에 Slug 추가
+
+`onCreateNode`라는 API를 활용해, 특정 노드에 필드를 추가할 수 있다.
+
+
+
+gatsby-node.js에 추가 (마크다운 데이터에만 Slug 추가)
+
+```
+...
+// Generate a Slug Each Post Data
+exports.onCreateNode = ({ node, getNode, actions }) => {
+  const { createNodeField } = actions;
+
+  if (node.internal.type === `MarkdownRemark`) {
+    const slug = createFilePath({ node, getNode });
+
+    createNodeField({ node, name: 'slug', value: slug });
+  }
+};
+```
+
+Slug 데이터는 contents 디렉토리 내의 마크다운 파일의 경로와 이름을 통해서 만들어진다.
+
+`gatsby-config.js` 의 `gatsby-source-filesystem` 플러그인에서 contents 디렉토리를 마크다운 데이터 경로로 설정했기 때문에 contents 디렉토리 내 마크다운 파일의 경로와 이름을 통해 Slug 데이터가 생성된다.
+
+
+
+해당 Slug 데이터는 GraphQL의 frontmatter와 형제 노드인 fileds 하위 요소에 있고, 사용 시에는 props로 `link={slug}`를 바로 주면 된다.
+
+
 
 
 

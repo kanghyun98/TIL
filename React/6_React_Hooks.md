@@ -40,7 +40,7 @@ useState(초기값)가 초기화되지 않는 이유는 react가 알아서 자�
 ## 2. useRef
 
 ```jsx
-const 변수명 = useRef()
+const 변수명 = useRef(initialValue)
 
 //선택하고 싶은 DOM에 ref값으로 설정, .current값이 원하는 DOM을 가리킴
 ```
@@ -134,6 +134,8 @@ deps 에 특정 값을 넣게 된다면, 컴포넌트가 처음 마운트 될 �
 - useMemo: Returns a [memoized](https://en.wikipedia.org/wiki/Memoization) value.
 
 ##### `useCallback(fn, deps)` = `useMemo(() => fn, deps)`
+
+useCallback은 함수 자체를, useMemo는 리턴 값이 변경되는 경우
 
 
 
