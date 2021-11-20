@@ -26,7 +26,6 @@ $ tsc -init //자동 생성
 
 ```json
 //tsconfig.json
-
 {    
   "compilerOptions": {
       "allowJs": true,
@@ -40,6 +39,30 @@ $ tsc -init //자동 생성
       // "outDir": "./dist"
   },
   "include": [“**/*”]
+}
+
+```
+
+```js
+// tsconfig.json	// Next + TypeScript
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve"
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
 }
 
 ```
@@ -67,6 +90,13 @@ $ tsc -init //자동 생성
 ```typescript
 $ tsc // ts파일에 있는 index.ts를 컴파일해서 index.js, index.js.map을 만듦
 $ node dist/index  //index 파일 실행
+```
+
+혹은 ts-node로 메모리 상에서 타입스크립트를 transpile하여 바로 실행
+
+```
+$ yarn add -D ts-node
+$ node_modules/.bin/ts-node ./src/index.ts
 ```
 
 

@@ -92,7 +92,7 @@ let b = a as string;	// this is type assertion
 abc = document.querySelector('.test');	// abc: null | Element
 abc.appendChild(test2);		// object is possibly 'null'
 
-abc!.appendChild(test2);	// !를 붙여주어 null이 아니라는 것을 알려준다.
+abc!.appendChild(test2);	// !.를 붙여주어 null이 아니라는 것을 알려준다.
 ```
 
 

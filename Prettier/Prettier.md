@@ -12,23 +12,15 @@ code formatter
 
 ```
 {
-
   "singleQuote": true, 		// 따옴표 '' or ""
-
-  "parser": "typescript",   // 해줘야 하나?
-
-  "semi": true,				// 세미콜론 ;
-
-  "useTabs": false,
-
   "tabWidth": 2,				// 들여쓰기 크기
-
   "trailingComma": "all",		// none or es5 or all : 맨 마지막 줄에 쉼표
-
-  "printWidth": 100,
-
-  "arrowParens": "always"
-
+  "printWidth": 120,
+  "semi": true,				// 세미콜론 ;
+  
+  "arrowParens": "always",	// arrow function의 파라미터에 괄호 유무
+  "useTabs": false,			// 탭 사용 여부?
+  "parser": "typescript"   // 해줘야 하나?
  } 
 ```
 

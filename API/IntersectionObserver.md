@@ -117,30 +117,4 @@ myObserver.observe(targetDOM);	// 관찰 시작
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 https://developer.mozilla.org/ko/docs/Web/API/Intersection_Observer_API

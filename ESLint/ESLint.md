@@ -13,23 +13,27 @@ CRA(create-react-app)의 경우 기본으로 ESLint가 이미 적용되어 있�
 
 module.exports = {
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint', 'react-hooks'],
+  plugins: ['@typescript-eslint'],
   extends: [
-    'airbnb',
-    'airbnb/hooks',
-    'prettier',
-    'prettier/react',
-    'prettier/@typescript-eslint',
+    'airbnb-base',
+    'airbnb-typescript/base',
+    'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
     'plugin:jsx-a11y/recommended',
-    'plugin:import/errors',
     'plugin:import/warnings',
-    'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
+    'plugin:react-hooks/recommended',
   ],
   rules: {
-    '@typescript-eslint/explicit-function-return-type': 0,
+  	'jsx-a11y/label-has-associated-control': 0,
+    'jsx-a11y/anchor-is-valid': 0,
+    'no-console': 0,
+    'no-underscore-dangle': 0,
     'linebreak-style': 0,
+    'no-param-reassign': 0,
+    
+    // 뽀너스?
+    '@typescript-eslint/explicit-function-return-type': 0,
     'import/extensions': 0,
     'react/jsx-filename-extension': 0,
     'no-unused-vars': 1,
@@ -120,7 +124,7 @@ package.json 파일의 "eslintConfig" 부분 변경
 - 기본 셋팅 후, 아래 명령어 실행
 
 ```
-$ npm i -D eslint prettier typescript eslint-plugin-prettier eslint-config-prettier @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-import eslint-config-airbnb eslint-plugin-jsx-a11y eslint-plugin-react eslint-plugin-react-hooks  
+$ npm i -D eslint prettier typescript eslint-plugin-prettier eslint-config-prettier @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-import eslint-config-airbnb-base eslint-plugin-jsx-a11y eslint-plugin-react eslint-plugin-react-hooks  
 ```
 
 - babel까지 할거면
