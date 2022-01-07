@@ -78,3 +78,32 @@ rl.on('line', function (input) {
   /////////////////////////////
   process.exit();
 });
+
+// merge sort 모범 답안
+const merge = (leftArr, rightArr) => {
+  const mergedArr = [];
+
+  while (leftArr.length && rightArr.length) {
+    leftArr[0] < rightArr[0]
+      ? mergedArr.push(leftArr.shift())
+      : mergedArr.push(rightArr.shift());
+  }
+
+  while (leftArr.length) mergedArr.push(leftArr.shift());
+  while (rightArr.length) mergedArr.push(rightArr.shift());
+
+  return mergedArr;
+};
+
+const mergeSort = (arr) => {
+  if (arr.length < 2) {
+    return arr; // 원소 1개이면 그대로 반환
+  }
+
+  const leftLen = Math.floor(arr.length / 2); // 왼쪽 배열 길이 설정
+
+  const leftArr = mergeSort(arr.splice(0, leftLen)); // slice 이용 가능
+  const rightArr = mergeSort(arr);
+
+  return merge(leftArr, rightArr);
+};
