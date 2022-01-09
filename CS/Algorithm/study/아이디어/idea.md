@@ -100,14 +100,23 @@
 
   - 10 -> n 진법 변환
 
-    ```
+    ```js
     num.toString(n)
     ```
 
   - n -> 10 진법 변환
 
-    ```
+    ```js
     Number.parseInt(num, n)
+    ```
+
+  - 자릿수 맞추기
+
+    ```js
+    const makeBinary = (num, n) => {
+        const bin = num.toString(2)
+        return Array(n - String(bin).length).fill(0).join('') + bin
+      }
     ```
 
     
