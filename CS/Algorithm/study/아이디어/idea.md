@@ -25,13 +25,37 @@
   };
   ```
 
+- n 이하의 소수 구하기 (에라토스테네스의 체)
+
+  ```js
+  function solution(n) {
+    const arr = Array(n + 1).fill(1); // idx와 실제 값 동일
+    arr[0] = arr[1] = 0;
+  
+    for (let i = 2; i <= n; i++) {
+      if (arr[i]) {
+        let k = 2;
+        while (k * i <= n) {
+          arr[k * i] = 0;
+          k++;
+        }
+      }
+    }
+  
+    return arr.filter((num) => num).length;
+  }
+  
+  ```
+
+  
+
 - 정렬 했을 때 각각의 배열 요소가 몇번째에 오는지 반환
 
   ```js
   // 내림차순
   const sortedArr = [...arr].sort((a, b) => b - a);
   const result = [];
-
+  
   sortedArr.forEach((target) => {
     const idx = arr.findIndex((num) => num === target);
     arr[idx] = -1; // 중복 방지
@@ -55,7 +79,7 @@
 
     ```js
     const values = ['a', 'b', 'c', 'c', 'd', 'b'];
-  
+    
     const count = values.reduce((acc, cur) => {
       acc[cur] = (acc[cur] || 0) + 1;
       return acc;
@@ -83,6 +107,44 @@
     ```js
     Number.isInteger(Math.sqrt(i)) ? '홀수' : '짝수';
     ```
+    
+  - 약수의 합
+
+    ```js
+    function solution(n) {
+      let answer = 0;
+    
+      for (let i = 1; i <= Math.sqrt(n); i++) {
+        if (n % i === 0) {
+          answer += i;
+    
+          if (n !== i ** 2) {
+            answer += n / i;
+          }
+        }
+      }
+    
+      return answer;
+    }
+    ```
+
+- 최소공배수 / 최대공약수
+
+  ```js
+  function calc_gcd(a, b) {
+    if (b == 0) return a;
+    return a > b ? calc_gcd(b, a % b) : calc_gcd(a, b % a);
+  }
+  
+  function solution(a, b) {
+    const gcd = calc_gcd(a, b);
+    const lcm = (a * b) / gcd;
+  
+    return [gcd, lcm];
+  }
+  ```
+
+  
 
 - N진법 변환
 
