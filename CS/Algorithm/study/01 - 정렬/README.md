@@ -1,3 +1,49 @@
+[TOC]
+
+## O(N^2) 정렬
+
+### 버블 정렬
+
+버블 정렬은 매번 연속된 두 개의 인덱스를 비교한다.
+
+비교할 때마다 큰 값이 뒤로 이동하며, 한 바퀴를 돌면 맨 뒤에 가장 큰 값이 저장된다.
+
+다음 한 바퀴를 돌 때는 맨 마지막 인덱스를 제외하고 진행한다.
+
+모든 경우에 시간 복잡도가 O(n^2)이 된다.
+
+![Bubble sort](https://www.programmingsimplified.com/images/c/bubble-sort.gif)
+
+[이미지 출처](https://www.programmingsimplified.com/c/source-code/c-program-bubble-sort)
+
+
+
+### 선택 정렬
+
+선택 정렬은 현재 인덱스의 우측에 위치한 모든 인덱스를 돌며 최솟값을 찾아 현재 인덱스의 값과 변경한다.
+
+한 바퀴를 돌 때마다 좌측부터 작은 값들이 정렬되어 위치한다.
+
+모든 경우에 시간 복잡도가 O(n^2)이 된다.
+
+![selectionsort.gif (700×400)](https://hudi.kr/wp-content/uploads/2018/02/selectionsort.gif)
+
+[이미지 출처](https://hudi.kr/%EC%A0%95%EB%A0%AC-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-1-%EC%84%A0%ED%83%9D-%EC%A0%95%EB%A0%AC-selection-sort/selectionsort/)
+
+
+
+### 삽입 정렬
+
+삽입 정렬은 현재 인덱스까지의 값들이 정렬되게 만드는 방법으로, 좌측 인덱스들에서 현재 인덱스보다 큰 인덱스와 작은 인덱스 사이에 현재 인덱스의 값을 삽입하는 방식이다.
+
+만약 정렬이 되어있는 경우 시간복잡도는 O(n)이 된다.
+
+![img](https://media.vlpt.us/images/hwamoc/post/4baaa2bc-d48a-4f3b-a063-6538f6f59971/%EC%82%BD%EC%9E%851.gif)
+
+[이미지 출처](https://gfycat.com/ko/densebaggyibis)
+
+
+
 ## O(NlogN) 정렬
 
 ### 1. 병합 정렬
@@ -127,6 +173,7 @@ const mergeSort = (arr) => {
   <img src="https://user-images.githubusercontent.com/70627979/148479250-aa3d6da2-c0ba-48de-be15-acdbc0bc1dc5.png" alt="image" style="zoom:25%;" />
 
 - 알고리즘 (오름차순)
+
   - 정렬하고자 하는 배열의 요소들로 최대 힙을 만든다
   - 최상위 루트의 값을 꺼내 순차적으로 저장한다.
     - 마지막 노드를 최상위 루트로 가져옴
@@ -178,3 +225,4 @@ const mergeSort = (arr) => {
   ```
 
   
+
