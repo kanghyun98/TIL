@@ -16,29 +16,156 @@
 
 ### Binary Tree (이진 트리)
 
-각각의 노드가 최대 두 개의 자식 노드를 가지는 트리 자료 구조
+각각의 **노드가 최대 두 개의 자식 노드**를 가지는 트리 자료 구조
 
 - 트리의 **크기**: 노드의 개수
-
 - 트리의 **높이**: 트리의 최고 레벨
 
   - 루트 노드의 레벨이 0, 순차적으로 1씩 증가
 
-  
 
-- **Perfect Binary Tree (포화 이진 트리)**: 모든 레벨이 꽉 찬 이진 트리
+
+
+#### Binary Tree 종류
 
 - **Complete Binary Tree (완전 이진 트리)**: 위에서 아래로, 왼쪽에서 오른쪽으로 순서대로 차곡차곡 채워진 이진 트리
-
+- **Perfect Binary Tree (포화 이진 트리)**: 모든 레벨이 꽉 찬 이진 트리
 - **Full Binary Tree (정 이진 트리):** 모든 노드가 0개 혹은 2개의 자식 노드만을 갖는 이진 트리
 
 
 
-아래 이미지는 크기가 9, 높이가 3인 이진 트리이다.
+<img src="https://user-images.githubusercontent.com/70627979/150289982-ad09cd2e-00a5-4b8a-a4fd-e0396151bd4c.png" alt="image" style="zoom: 15%;" />
 
-<img src="https://user-images.githubusercontent.com/70627979/149658942-fe9da7ec-31fb-43c8-ab12-0ae2df02e2c1.png" alt="image" style="zoom:67%;" />
+#### Binary Tree 코드
 
-[이미지 출처](https://ko.wikipedia.org/wiki/%EC%9D%B4%EC%A7%84_%ED%8A%B8%EB%A6%AC)
+```js
+// 노드 정의
+class Node {
+  constructor(data, left = null, right = null) {
+    this.data = data;
+    this.left = left;
+    this.right = right;
+  }
+}
+
+// 트리 정의
+class Tree {
+  constructor() {
+    this.root = null;
+  }
+  
+  setRoot(node) {
+    this.root = node;
+  }
+  
+  getRoot() {
+    return this.root;
+  }
+  
+  makeNode(data, leftNode = null, rightNode = null) {
+    const node = new Node();
+    node.data = data;
+    node.left = leftNode;
+    node.right = rightNode;
+    
+    return node;
+  }
+}
+
+// 트리 생성하기(위 이미지)
+const tree = new Tree();
+const n4 = tree.makeNode(4, null, null);
+const n5 = tree.makeNode(5, null, null);
+const n2 = tree.makeNode(2, n4, n5);
+const n3 = tree.makeNode(3, null, null);
+const n1 = tree.makeNode(1, n2, n3);
+tree.setRoot(n1);
+```
+
+
+
+### Binary Tree 3가지 순회 방법
+
+<img src="https://user-images.githubusercontent.com/70627979/150289982-ad09cd2e-00a5-4b8a-a4fd-e0396151bd4c.png" alt="image" style="zoom: 15%;" />
+
+#### Inorder 방법
+
+1. **Left**
+2. **Root**
+3. **Right**
+
+[ 4 - 2 - 5 - 1 - 3]
+
+
+
+#### Preorder 방법
+
+1. **Root**
+2. **Left**
+3. **Right**
+
+[1 - 2 - 4 - 5 - 3]
+
+
+
+#### Postorder 방법
+
+1. **Left**
+2. **Right**
+3. **Root**
+
+[4 - 5 - 2 - 3 - 1]
+
+
+
+#### Binary Tree 순회 코드 
+
+```js
+// 위 이미지 기반 구현
+// Inorder (Left, Root, Right): [4, 2, 5, 1, 3]
+// Preorder (Root, Left, Right): [1, 2, 4, 5, 3]
+// Postorder (Left, Right, Root): [4, 5, 2, 3, 1]
+
+const arr = [];
+
+const inorder = (node) => {
+  if(node !== null) {
+    inorder(node.left);
+    arr.push(node.data);
+    inorder(node.right);
+  }
+}
+
+const preorder = (node) => {
+  if(node !== null) {
+    arr.push(node.data);
+    preorder(node.left);
+    preorder(node.right);
+  }
+}
+
+const postorder = (node) => {
+  if(node !== null) {
+    postorder(node.left);
+    postorder(node.right);
+    arr.push(node.data);
+  }
+}
+
+// Tree 생성 후, 실행
+const tree = new Tree();
+const n4 = tree.makeNode(4, null, null);
+const n5 = tree.makeNode(5, null, null);
+const n2 = tree.makeNode(2, n4, n5);
+const n3 = tree.makeNode(3, null, null);
+const n1 = tree.makeNode(1, n2, n3);
+tree.setRoot(n1);
+
+const root = tree.getRoot();
+inorder(root); // [4, 2, 5, 1, 3]
+// preorder(root);  // [1, 2, 4, 5, 3]
+// postorder(root);  // [4, 5, 2, 3, 1]
+```
 
 
 
@@ -69,7 +196,108 @@ linked list의 경우 자료 입력 및 삭제에 필요한 시간 복잡도가 
 
 
 
+#### BST 코드
 
+```js
+// 노드 정의
+class Node {
+  constructor(data, left = null, right = null) {
+    this.data = data;
+    this.left = left;
+    this.right = right;
+  }
+}
+
+// 이진탐색트리 정의
+class BST {
+  constructor() {
+    this.root = null;
+  }
+
+  add(data) {
+    const node = this.root;
+
+    if (node === null) {
+      this.root = new Node(data);
+      return;
+    } else {
+      const searchTree = function (node) {
+        if (data < node.data) {
+          if (node.left === null) {
+            node.left = new Node(data);
+            return;
+          } else if (node.left !== null) {
+            //left에 함수 있을 시 재귀 함수 적용
+            return searchTree(node.left);
+          }
+        } else if (data > node.data) {
+          if (node.right === null) {
+            node.right = new Node(data);
+            return;
+          } else if (node.right !== null) {
+            return searchTree(node.right);
+          }
+        } else {
+          return null;
+        }
+      };
+      return searchTree(node);
+    }
+  }
+
+  remove(data) {
+    //제거할 data의 파라미터를 두번째에 놓았다.
+    const removeNode = function (node, data) {
+      if (node == null) {
+        return null;
+      }
+      if (data == node.data) {
+        // node has no children ~ 밑에 뿌리가 없는 노드
+        if (node.left == null && node.right == null) {
+          return null;
+        }
+        // node has no left child  ~ left는 없는 경우 node right가 해당 삭제 데이터에 들어간다.
+        if (node.left == null) {
+          return node.right;
+        }
+        // node has no right child
+        if (node.right == null) {
+          return node.left;
+        }
+        // node has two children
+        var tempNode = node.right;
+        //tempNode는 삭제할 node의 right가 되고
+        while (tempNode.left !== null) {
+          tempNode = tempNode.left; //다시 node right의 left가 된다.
+        }
+        node.data = tempNode.data; //그리고 삭제 node에는 위의 tempnode가 들어가게된다.
+        node.right = removeNode(node.right, tempNode.data);
+        return node;
+      } else if (data < node.data) {
+        node.left = removeNode(node.left, data);
+        return node;
+      } else {
+        node.right = removeNode(node.right, data);
+        return node;
+      }
+    };
+    this.root = removeNode(this.root, data);
+  }
+}
+```
+
+
+
+
+
+### Trie Tree
+
+문자열 검색을 빠르게 도와주기 위한 트리를 이용한 자료 구조 
+
+만약 문자열들을 각각 이진트리 형태로 저장했다면 O(mlogn)의 시간복잡도를 가져 매우 비효율적일 것이다.
+그래서 문자열들을 모두 분해해 알파벳 하나씩 트리형태로 저장하는 방법을 사용하여 매우 빠른 탐색을 수행할 수 있다.(O(m)의 시간복잡도)
+
+<img src="https://user-images.githubusercontent.com/70627979/150303540-c167f5c2-b98b-437f-964a-e2b5e4bcde4b.png" alt="image" style="zoom:33%;" />
 
 
 
@@ -78,3 +306,5 @@ linked list의 경우 자료 입력 및 삭제에 필요한 시간 복잡도가 
 - https://github.com/JaeYeopHan/Interview_Question_for_Beginner/tree/master/DataStructure#tree
 - https://ko.wikipedia.org/wiki/%EC%9D%B4%EC%A7%84_%ED%8A%B8%EB%A6%AC
 - https://ratsgo.github.io/data%20structure&algorithm/2017/10/22/bst/
+- https://velog.io/@kimkevin90/Javascript%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-tree-%EA%B5%AC%ED%98%84
+- https://www.youtube.com/watch?v=QN1rZYX6QaA&list=PLjSkJdbr_gFY8VgactUs6_Jc9Ke8cPzZP&index=2
