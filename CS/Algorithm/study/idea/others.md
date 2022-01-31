@@ -59,6 +59,14 @@ const arr = [...Array(rows)].map(() => Array(cols).fill(0));
 
 
 
+### n개의 배열을 원소로 갖는 배열 만들기
+
+```js
+const arr = Array(n).fill().map(() => Array())
+```
+
+
+
 ### a부터 b 까지 합
 
 ```js
