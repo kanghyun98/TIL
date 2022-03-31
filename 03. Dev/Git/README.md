@@ -1,18 +1,13 @@
-# Git 명령어 정리
+# Git 정리
 
 괄호[ ]와 괄호 안의 내용은 지우고 상황에 맞게 사용하면 된다.
 
 ## 01. GIT 상태 확인
 
 - **버전 확인**: `git —version`
-
 - **파일들 상태 확인**: `git status`
-
-- commit log 확인
-
-  : `git log`
-
-  - graph로 확인: `git log --graph`
+- **commit log 확인**: `git log`
+  - **graph로 확인:** `git log --graph`
 
 - **이전 commit과 비교하여 파일 변경 사항 확인**: `git diff`
 
@@ -28,6 +23,8 @@
 
 ## 03. remote repository에 등록
 
+깃헙에서 레포를 만들면 명령어가 나오니 참고하도록 하자!
+
 - **초기화(.git 생성)**: `git init`
 - **전부 add & commit**: `git commit -am "[commit message]"`
 - **remote repository 등록**: `git remote add [remote name] [repository address]`
@@ -42,6 +39,8 @@
   - [DIR] 생략 시, 현재 위치에 clone
 - **remote repository 등록**: `git remote add [remote name] [repository address]`
   - [remote name]는 일반적으로 origin을 사용하며, `git remote` 명령어를 통해 확인할 수 있다.
+
+
 
 ## 05. 커밋하기 ⭐️
 
@@ -81,6 +80,8 @@
 
   - **바로 이전 commit message 수정:** `git commit --amend`
   - **바로 이전 commit 에 새로운 파일 변경 사항을 추가하기:** `git commit -C HEAD --amend`
+  
+  
 
 ## 07. 브랜치 관련 ⭐️
 
@@ -91,6 +92,10 @@
 - **브랜치 이동:** `git checkout [branch]`
 - **브랜치 삭제**: `git branch -D [branch]`
 - **원격 브랜치 삭제**: `git push -d origin [branch]`
+- **원격 브랜치 추적:** `git remote update git checkout -t origin/[branch]`
+- **원격 브랜치 반영**: `git remote prune origin`
+- **원격 브랜치 확인**: `git branch -r`
+- **로컬 브랜치 확인**: `git branch -a`
 
 
 
@@ -100,7 +105,7 @@
 - **Rebase and Merge**: `git rebase [branch]` → branch 생성(merge) 내역을 남기지 않고 병합(branch에서의 커밋들을 그대로)
 - **Squash and Merge**: `git rebase -i HEAD~[commit 개수]` → branch 생성(merge) 내역을 남기지 않고 병합(branch에서의 커밋들을 하나로 통일)
 
-⇒ 수정 전,후를 남겨두고 싶다면 rebase가 좋을 것 같고, commit을 주차별로 깔끔하게 남기고 싶다면 squash가 좋을 것 같다
+⇒ 브랜치 생성 내역까지 모두 남기고 싶다면 그냥 merge, 커밋들만 남겨두고 싶다면 **rebase merge**, commit을 merge할 때만 남겨 깔끔하게 관리하고 싶다면 **squash merge**가 좋을 것 같다
 
 
 
@@ -110,18 +115,18 @@
 
 1. 기여하려는 저장소 Fork (github repo 우측 상단에 fork 버튼)
 2. clone, remote설정
-   - clone: `git clone [repository address] [DIR]` 
+   - **clone**: `git clone [repository address] [DIR]` 
      - [DIR] 생략 시, 현재 위치에 clone
-   - remote repository 등록: `git remote add [remote name] [repository address]`
+   - **remote repository 등록**: `git remote add [remote name] [repository address]`
      - [remote name]는 일반적으로 origin을 사용하며, `git remote` 명령어를 통해 확인할 수 있다.
 3. branch 생성
-   - branch **생성, 이동:** `git checkout -b [branch]`
+   - **branch** **생성, 이동:** `git checkout -b [branch]`
 4. 생성한 branch에서 수정 작업 후 add, commit, push
-   - 특정 파일 add: `git add [file]`
+   - **특정 파일 add**: `git add [file]`
      - 변경 파일 전부 add: `git add .`
-   - commit: `git commit -m "[commit message]"`
+   - **commit**: `git commit -m "[commit message]"`
      - 변경 파일 전부 add & commit: `git commit -am "[commit message]"`
-   - push: `git push [remote name] [branch name]`
+   - **push**: `git push [remote name] [branch name]`
      - 생성한 [branch]로 push
 5. Pull Request 생성 (본인 github repo의 compare&pull request 버튼)
 6. 코드리뷰, Merge Pull Reqest (기존 repo 주인이 PR 승인 및 merge)
