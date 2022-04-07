@@ -17,9 +17,9 @@ $ yarn add -D swagger-ui-express swagger-jsdoc
 
 
 
-## 코드
+## Basic Settings
 
-swagger를 적용시키는 방식은 매우 다양하다. 나는 공식문서에 나와있는 Express router와 함께 사용하는 방식을 선택하여 적용하였다.
+swagger를 적용시키는 방식은 매우 다양하다. 나는 OpenAPI 버전3을 사용하였고, [문서](https://github.com/scottie1984/swagger-ui-express)에 나와있는 Express의 router와 함께 사용하는 방식을 선택하여 적용하였다.
 
 옵션에 대해 파일을 따로 분리시킬 수도 있지만, swagger 관련 코드가 옵션을 제외하면 거의 없고, 파일 구조가 복잡해지는 것을 고려해서 하나의 파일에 담아두었다. (추후에 필요하다면 분리시킬 예정)
 
@@ -42,7 +42,7 @@ const options = {
     },
     servers: [
       { url: 'http://localhost:4000' },
-      { url: 'https://api.sasil.app' },
+      { url: 'https://서버주소' },
     ],
   },
   apis: [],
@@ -72,6 +72,6 @@ app.use('/docs', swaggerRouter);
 
 ## 결과
 
-이렇게 설정해준 결과, http://localhost:4000/docs/ 에 접근하면 아래와 같은 화면이 표시되며 swagger 설정이 성공적으로 이루어졌다는 것을 확인할 수 있다.
+이렇게 설정해준 결과, http://localhost:4000/docs/ 에 접근하면 아래와 같은 화면에 접근할 수 있으며, swagger 설정이 성공적으로 이루어진 것을 확인할 수 있다.
 
 <img width="1439" alt="image" src="https://user-images.githubusercontent.com/70627979/161433228-0c7569de-e7d4-4b59-af28-0e74a56b27e0.png">
