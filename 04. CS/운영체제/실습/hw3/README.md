@@ -44,13 +44,11 @@
 
    2. `user.h`에서는 헤더에 해당 System Call의 프로토타입을 정의해주어야 한다.
 
-      ![Untitled.png (393×464)](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/74b3a532-169e-474f-91c0-9986271af03d/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220404%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220404T052052Z&X-Amz-Expires=86400&X-Amz-Signature=bd31366e56c4f55b7b4d5686937ac96ba49341053c89316dc30ab4124ab63894&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
-
-      
+      <img src="https://user-images.githubusercontent.com/70627979/163186515-0860128e-e988-42de-9907-acbca1e2c401.png" alt="image" style="zoom:80%;" />
 
    3. 그러면 `usys.S`의 `SYSCALL`이라는 매크로를 타고 들어가게된다.
       → 여기 안에 trap instruction이 있으며, trap이 발생한다
-
+   
       <img src="https://user-images.githubusercontent.com/70627979/161479139-68030582-3ae8-40f1-ba96-6026e1e63151.png" alt="image" style="zoom:67%;" />
 
       
