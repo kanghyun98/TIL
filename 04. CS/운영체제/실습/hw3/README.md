@@ -1,6 +1,6 @@
 # 5주차 과제
 
-## 과제 내용
+## 요구 사항
 
 이번 과제는 xv6 환경에서 `getnice`, `setnice`, `ps` 라는 System Call들을 구현하는 것이었다. 각각의 기능은 아래와 같다.
 
@@ -160,15 +160,25 @@ struct proc {
 
 
 
-#### 문제점
+### 결과
 
-그런데 위 상태로 테스트 코드를 실행시키면, 1번, 6번 test에서 실패가 뜬다.
+아래와 같이 테스트가 성공적으로 끝났다.
+
+![image](https://user-images.githubusercontent.com/70627979/161481939-828637cc-b80c-42d4-894e-b9e7cec13bef.png)
+
+
+
+## 겪었던 문제
+
+### 문제점
+
+처음에 1번, 6번 test에 실패가 떴었다.
 
 테스트 내용을 살펴보니 1번 테스트는 xv6 실행 시 `pid` 값이 1번인 프로세스의 `priority` 값이 5로 초기화되어야 성공할 수 있었고, 6번 테스트는 `fork()`를 하는데, 자식 프로세스의 `priority`값이 부모 프로세스의 `priority`값을 상속받게 만들어야했다.
 
 
 
-#### 해결
+### 해결 과정
 
 아래와 같이 `init.c` 파일에 `setnice(1, 5)`를 추가해주어 1번 테스트를 통과하였고,
 
@@ -179,12 +189,4 @@ struct proc {
 ```c
 setnice(pid, getnice(curproc->pid));
 ```
-
-
-
-## 결과
-
-위처럼 코드를 변경해준 결과 테스트를 모두 통과할 수 있었다.
-
-![image](https://user-images.githubusercontent.com/70627979/161481939-828637cc-b80c-42d4-894e-b9e7cec13bef.png)
 
