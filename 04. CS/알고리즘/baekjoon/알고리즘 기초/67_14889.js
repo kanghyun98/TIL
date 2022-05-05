@@ -17,16 +17,17 @@ const arr = list.map((str) => str.split(' ').map(Number));
 const visited = Array(playerNum).fill(false);
 let balancedScore = Number.MAX_SAFE_INTEGER;
 
-const dps = (lev) => {
-  if (lev === playerNum) {
+const dps = (lev, idx) => {
+  if (lev === playerNum / 2) {
     checkScore(); // 능력치 비교
     return;
   }
 
-  visited[lev] = true;
-  dps(lev + 1);
-  visited[lev] = false;
-  dps(lev + 1);
+  for (let i = idx; i < playerNum; i++) {
+    visited[i] = true;
+    dps(lev + 1, i + 1);
+    visited[i] = false;
+  }
 };
 
 const checkScore = () => {
@@ -49,7 +50,7 @@ const checkScore = () => {
   }
 };
 
-dps(0);
+dps(0, 0);
 
 console.log(balancedScore);
 

@@ -41,7 +41,7 @@ function solution(s) {
     'eight',
     'nine',
   ];
-  var answer = s;
+  let answer = s;
 
   for (let i = 0; i < numbers.length; i++) {
     let arr = answer.split(numbers[i]);

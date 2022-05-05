@@ -6,8 +6,11 @@ function solution(lottos, win_nums) {
   let zeroCount = 0;
 
   lottos.forEach((num) => {
+    if (num === 0) {
+      zeroCount += 1;
+      return;
+    }
     if (win_nums.includes(num)) sameNumCount += 1;
-    if (num === 0) zeroCount += 1;
   });
 
   const worst = sameNumCount < 2 ? 6 : 7 - sameNumCount;
