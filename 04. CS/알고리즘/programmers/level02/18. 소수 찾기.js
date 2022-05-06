@@ -29,20 +29,22 @@ const isPrime = (num) => {
 
 // 실행
 function solution(numbers) {
-  const numsArr = [];
+  const numsObj = {};
 
+  // 모든 경우의 수 구하기
   const arr = numbers.split('');
   for (let i = 1; i <= numbers.length; i++) {
     const perms = getPermutation(arr, i);
     perms.forEach((val) => {
-      numsArr.push(Number(val.join('')));
+      numsObj[Number(val.join(''))] = 1;
     });
   }
 
-  const data = new Set(numsArr);
-
+  // 소수 판단하기
+  const allNums = Object.keys(numsObj);
   let answer = 0;
-  for (const num of data) {
+
+  for (const num of allNums) {
     answer += isPrime(num) ? 1 : 0;
   }
 

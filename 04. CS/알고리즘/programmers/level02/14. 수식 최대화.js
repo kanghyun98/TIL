@@ -17,14 +17,13 @@ function solution(expression) {
   };
 
   // 재귀 함수
-  const getCalcRes = (exp, opArr, lev = 2) => {
-    if (lev < 0 || !/[\+\-\*]/.test(exp)) return Number(exp);
+  const getCalcRes = (exp, opArr, idx = 2) => {
+    if (idx < 0) return Number(exp);
 
-    const expList = exp.split(opArr[lev]);
-    const resExp = expList.map((subExp) => getCalcRes(subExp, opArr, lev - 1));
-    const result = calc(resExp, opArr[lev]);
+    const expList = exp.split(opArr[idx]);
+    const resExp = expList.map((subExp) => getCalcRes(subExp, opArr, idx - 1));
 
-    return result;
+    return calc(resExp, opArr[idx]);
   };
 
   const result = comb.map((op) => Math.abs(getCalcRes(expression, op)));

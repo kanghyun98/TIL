@@ -2,28 +2,38 @@
 function solution(str1, str2) {
   const str1Obj = {};
   const str2Obj = {};
-  let idx = 0;
-  let count1 = 0;
-  let count2 = 0;
+
+  // 집합 만들기
+  const str1Arr = [
+    ...(str1.match(/../g).filter((s) => /[A-Za-z]{2}/.test(s)) || []),
+    ...(str1
+      .slice(1)
+      .match(/../g)
+      .filter((s) => /[A-Za-z]{2}/.test(s)) || []),
+  ];
+
+  const str2Arr = [
+    ...(str2.match(/../g).filter((s) => /[A-Za-z]{2}/.test(s)) || []),
+    ...(str2
+      .slice(1)
+      .match(/../g)
+      .filter((s) => /[A-Za-z]{2}/.test(s)) || []),
+  ];
+
+  str1Arr.forEach((w) => {
+    const word = w.toLowerCase();
+    str1Obj[word] = (str1Obj[word] || 0) + 1;
+  });
+
+  str2Arr.forEach((w) => {
+    const word = w.toLowerCase();
+    str2Obj[word] = (str2Obj[word] || 0) + 1;
+  });
+
+  // 교집합, 합집합 계산
+  const count1 = str1Arr.length;
+  const count2 = str2Arr.length;
   let interCount = 0;
-
-  const check = (str) => /[a-z]{2}/.test(str);
-
-  while (idx < Math.max(str1.length, str2.length) - 1) {
-    const subStr1 = str1.slice(idx, idx + 2).toLowerCase();
-    if (check(subStr1)) {
-      str1Obj[subStr1] = (str1Obj[subStr1] || 0) + 1;
-      count1++;
-    }
-
-    const subStr2 = str2.slice(idx, idx + 2).toLowerCase();
-    if (check(subStr2)) {
-      str2Obj[subStr2] = (str2Obj[subStr2] || 0) + 1;
-      count2++;
-    }
-
-    idx++;
-  }
 
   Object.keys(str1Obj).forEach((key) => {
     if (str2Obj[key]) interCount += Math.min(str1Obj[key], str2Obj[key]);

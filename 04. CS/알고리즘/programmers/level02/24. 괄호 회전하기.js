@@ -1,14 +1,16 @@
 // 회전시켜 나올 수 있는 모든 문자열
 const getAllStr = (str) => {
   const result = [];
+
   for (let i = 0; i < str.length; i++) {
     result.push(str);
     str = str.slice(1) + str[0];
   }
+
   return result;
 };
 
-// 올바른 괄호문자열인지 확인하기 위한 함수 -> stack 3개 만들자
+// 올바른 괄호문자열인지 확인하기 위한 함수
 const checkRightStr = (str) => {
   const stack = [];
   let isOkay = true;
@@ -34,7 +36,7 @@ const checkRightStr = (str) => {
         break;
     }
 
-    if (!isOkay) return;
+    if (!isOkay) break;
   }
 
   return isOkay && stack.length === 0;

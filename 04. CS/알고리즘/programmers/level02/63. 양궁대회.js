@@ -1,78 +1,50 @@
 function solution(n, info) {
-  const result = {
-    maxDiff: 0,
-    ryanArr: [],
-    lastValIdx: 0,
-    lastVal: 0,
+  const ryanArr = Array(11).fill(0);
+  let maxDiff = 0;
+  let result = [-1];
+
+  const getScoreDiff = (apeachArr, ryanArr) => {
+    let diff = 0;
+    for (let i = 0; i <= 10; i++) {
+      if (ryanArr[i] || apeachArr[i]) {
+        diff += ryanArr[i] > apeachArr[i] ? 10 - i : i - 10;
+      }
+    }
+    return diff;
   };
 
-  function getRyanArr(lastArrow, arr, idx, lastIdx) {
-    // 끝나는 조건
-    if (lastArrow === 0 || idx === lastIdx) {
-      const lastTime = lastIdx - idx;
-      arr.push(...Array(lastTime).fill(0), lastArrow);
+  const dfs = (idx, lastArrow) => {
+    if (idx === 10) {
+      ryanArr[idx] = lastArrow; // 남은 화살
 
-      const diff = getScoreDiff(arr, info);
-      const lastValIdx = lastArrow ? lastIdx : idx;
-      const lastVal = lastArrow ? lastArrow : arr[idx];
-
-      if (diff > result.maxDiff) {
-        // 차이가 더 큰 경우
-        result.maxDiff = diff;
-        result.ryanArr = arr;
-        result.lastValIdx = lastValIdx;
-        result.lastVal = lastVal;
-      } else if (diff === result.maxDiff) {
-        // 차이가 같은 경우
-        if (lastValIdx > result.lastValIdx) {
-          // 값이 들어있는 idx가 더 뒤에 있는 경우
-          result.maxDiff = diff;
-          result.ryanArr = arr;
-          result.lastValIdx = lastValIdx;
-          result.lastVal = lastVal;
-        } else if (lastValIdx === result.lastValIdx) {
-          // 값이 들어있는 idx가 같은 경우
-          if (lastVal > result.lastVal) {
-            result.maxDiff = diff;
-            result.ryanArr = arr;
-            result.lastValIdx = lastValIdx;
-            result.lastVal = lastVal;
+      const diff = getScoreDiff(info, ryanArr);
+      if (diff > maxDiff) {
+        maxDiff = diff;
+        result = [...ryanArr];
+      } else if (diff === maxDiff) {
+        for (let i = 10; i > 0; i--) {
+          if (ryanArr[i] < result[i]) break;
+          else if (ryanArr[i] > result[i]) {
+            result = [...ryanArr];
+            break;
           }
         }
       }
-
       return;
     }
 
-    // ryan 승리
-    const canWinNum = info[idx] + 1;
-    if (canWinNum <= lastArrow) {
-      getRyanArr(lastArrow - canWinNum, [...arr, canWinNum], idx + 1, lastIdx);
+    const canWinArrow = info[idx] + 1;
+
+    if (lastArrow - canWinArrow >= 0) {
+      ryanArr[idx] = canWinArrow;
+      dfs(idx + 1, lastArrow - canWinArrow);
     }
 
-    // appeach 승리
-    getRyanArr(lastArrow, [...arr, 0], idx + 1, lastIdx);
-  }
+    ryanArr[idx] = 0;
+    dfs(idx + 1, lastArrow);
+  };
 
-  getRyanArr(n, [], 0, info.length - 1);
+  dfs(0, n);
 
-  return result.maxDiff ? result.ryanArr : [-1];
-}
-
-function getScoreDiff(ryanArr, apeachArr) {
-  let ryanScore = 0;
-  let apeachScore = 0;
-
-  apeachArr.forEach((apeachVal, idx) => {
-    const ryanVal = ryanArr[idx] || 0;
-    if (ryanVal > apeachVal) {
-      ryanScore += 10 - idx;
-    } else if (ryanVal < apeachVal) {
-      apeachScore += 10 - idx;
-    } else {
-      return;
-    }
-  });
-
-  return ryanScore - apeachScore;
+  return result;
 }

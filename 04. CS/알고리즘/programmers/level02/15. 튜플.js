@@ -1,7 +1,12 @@
-// 배열로 만들고, 배열의 크기가 작은 순으로 추가해주면서 Set로 만든다.
+// 숫자가 많이 나온게 앞에 있다는 원리 이용
 function solution(s) {
-  const arr = s.split('},').map((val) => val.match(/\d+/g).map(Number));
-  arr.sort((a, b) => a.length - b.length);
+  const numObj = {};
 
-  return [...arr.reduce((acc, cur) => new Set([...acc, ...cur]))];
+  const arr = s.match(/\d+/g);
+  arr.forEach((n) => (numObj[n] = (numObj[n] || 0) + 1));
+
+  const result = Object.keys(numObj).map(Number);
+  result.sort((a, b) => numObj[b] - numObj[a]);
+
+  return result;
 }

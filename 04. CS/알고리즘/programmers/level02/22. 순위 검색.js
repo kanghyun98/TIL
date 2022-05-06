@@ -1,17 +1,19 @@
 // 조합, 이진탐색 이용 방법
+
+// 이진 탐색으로 특정 점수 이상 유저 수 반환
 const binarySearch = (arr, n) => {
   let srt = 0;
   let fin = arr.length;
   while (srt < fin) {
     const mid = Math.floor((srt + fin) / 2);
-    arr[mid] < n ? (srt = mid + 1) : (fin = mid);
+    n > arr[mid] ? (srt = mid + 1) : (fin = mid);
   }
 
   return arr.length - srt;
 };
 
 function solution(info, query) {
-  // info 데이터로 객체 만들기 (조합 with dfs)
+  // info 데이터로 모든 경우의 조건 만들기 (with dfs)
   const infoObj = {};
   const getCombination = (arr, score, idx) => {
     const infoKey = arr.join('');
@@ -31,9 +33,9 @@ function solution(info, query) {
   };
 
   for (const data of info) {
-    const userDataArr = data.split(' ');
-    const score = Number(userDataArr.pop());
-    getCombination(userDataArr, score, 0);
+    const userInfoArr = data.split(' ');
+    const score = Number(userInfoArr.pop());
+    getCombination(userInfoArr, score, 0);
   }
 
   // 이진 탐색을 위한 정렬
@@ -51,37 +53,6 @@ function solution(info, query) {
 
     numArr ? answer.push(binarySearch(numArr, minScore)) : answer.push(0);
   }
-
-  return answer;
-}
-
-// 첫 시도, 시간 초과
-function solution(info, query) {
-  info.sort((a, b) => {
-    const [scoreA] = a.match(/\d+/).map(Number);
-    const [scoreB] = b.match(/\d+/).map(Number);
-    return scoreA - scoreB;
-  });
-
-  const answer = query.map((oneQuery) => {
-    let count = 0;
-    const queryArr = oneQuery.replace(/and/g, '').match(/\w+|-/g); // 쿼리별 조건
-
-    info.forEach((oneInfo) => {
-      const infoArr = oneInfo.split(' ');
-
-      // 언어, 직군, 경력, 소울푸드
-      let isRight = true;
-      for (let i = 0; i < 4; i++) {
-        if (queryArr[i] !== infoArr[i] && queryArr[i] !== '-') isRight = false;
-      }
-
-      // 점수
-      if (isRight && Number(infoArr[4]) >= Number(queryArr[4])) count++;
-    });
-
-    return count;
-  });
 
   return answer;
 }

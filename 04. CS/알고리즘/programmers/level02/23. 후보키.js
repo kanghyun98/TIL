@@ -18,13 +18,17 @@ function solution(relation) {
   let result = 0;
   combArr.forEach((combIdx) => {
     if (combIdx) {
+      // 색인에 해당하는 데이터
       const indices = combIdx.split('').map(Number);
-      const data = relation.map((tuple) =>
+      const dataByIndices = relation.map((tuple) =>
         indices.reduce((acc, cur) => acc + tuple[cur], '')
       );
 
-      if (data.length === new Set(data).size) {
+      // 후보키가 맞다면 (중복 제거 전후 길이 동일)
+      if (dataByIndices.length === new Set(dataByIndices).size) {
         result++;
+
+        // 최소성 조건 만족
         combArr.forEach((val, idx, origin) => {
           if (
             combIdx.length ===

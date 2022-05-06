@@ -4,6 +4,6 @@ process.stdin.on('data', (data) => {
   const a = Number(n[0]),
     b = Number(n[1]);
 
-  const row = '*'.repeat(a) + `\n`;
-  console.log(row.repeat(b));
+  const arr = Array(b).fill('*'.repeat(a));
+  console.log(arr.join('\n'));
 });

@@ -1,4 +1,4 @@
-// 축소(by 최대 공약수) => 전체 - 최단 거리로 이동 칸 수 (w + h - 1) * 최대공약수
+// 축소(by 최대 공약수) => 전체 - 서로소인 사각형의 최단 거리로 이동 칸 수 * gcd  => ((w + h)/gcd - 1) * gcd
 function solution(w, h) {
   const gcd = calc_gcd(w, h);
   return w * h - (w + h - gcd);
