@@ -1,3 +1,14 @@
+const change = (val) => {
+  return val.replace(/\w#/g, (a) => a[0].toLowerCase());
+};
+
+const getTime = (start, finish) => {
+  const [startHour, startMin] = start.split(':').map(Number);
+  const [finishHour, finishMin] = finish.split(':').map(Number);
+
+  return (finishHour - startHour) * 60 + finishMin - startMin;
+};
+
 function solution(m, musicinfos) {
   const newMelody = change(m);
   const answer = { title: '(None)', time: 0 };
@@ -22,15 +33,4 @@ function solution(m, musicinfos) {
   }
 
   return answer.title;
-}
-
-function change(val) {
-  return val.replace(/\w#/g, (a) => a[0].toLowerCase());
-}
-
-function getTime(start, finish) {
-  const [startHour, startMin] = start.split(':').map(Number);
-  const [finishHour, finishMin] = finish.split(':').map(Number);
-
-  return (finishHour - startHour) * 60 + finishMin - startMin;
 }

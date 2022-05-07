@@ -1,17 +1,17 @@
 // 시간 감축 방법
 function solution(bridge_length, weight, truck_weights) {
   let time = 0;
-  let bridge = [[0, 0]]; // 무게, 나갈 시간
-  let bridgeWeight = 0;
+  const bridge = [[0, 0]]; // [무게, 나갈 시간]
+  let bridgeWeight = 0; // 현재 다리 무게 하중
 
   while (bridge.length) {
-    if (bridge[0][1] === time) bridgeWeight -= bridge.shift()[0]; // 현재 시간이 맨 앞의 나갈 시간과 같다면 내보내주기
+    if (bridge[0][1] === time) bridgeWeight -= bridge.shift()[0]; // 현재 시간이 맨 앞 트럭의 나갈 시간과 같다면 내보내주기
 
     if (bridgeWeight + truck_weights[0] <= weight) {
       bridgeWeight += truck_weights[0];
       bridge.push([truck_weights.shift(), time + bridge_length]);
     } else {
-      if (bridge[0]) time = bridge[0][1] - 1; // 최대치 넘기면 시간 업데이트
+      if (bridge[0]) time = bridge[0][1] - 1; // 무게 최대치 넘기면 시간 업데이트
     }
 
     time++;

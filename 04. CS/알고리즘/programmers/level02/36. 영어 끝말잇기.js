@@ -1,24 +1,21 @@
 function solution(n, words) {
-  const wordsSet = [...new Set(words)];
-
+  const dictionary = {};
+  dictionary[words[0]] = true;
   let turn = 0;
-  if (words.length !== wordsSet.length) {
+
+  for (let i = 1; i < words.length; i++) {
     // 중복 단어
-    for (let i = 0; i < words.length; i++) {
-      if (!wordsSet[i]) turn = words.length;
-      if (words[i] !== wordsSet[i]) {
-        turn = i + 1;
-        break;
-      }
+    if (dictionary[words[i]]) {
+      turn = i + 1;
+      break;
+    } else {
+      dictionary[words[i]] = true;
     }
-  } else {
+
     // 끝말 잇지 못함
-    for (let i = 0; i < words.length - 1; i++) {
-      const last = words[i].length - 1;
-      if (words[i][last] !== words[i + 1][0]) {
-        turn = i + 2;
-        break;
-      }
+    if (words[i - 1].slice(-1) !== words[i][0]) {
+      turn = i + 1;
+      break;
     }
   }
 

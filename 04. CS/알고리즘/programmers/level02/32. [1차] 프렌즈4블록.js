@@ -30,20 +30,17 @@ function solution(m, n, board) {
       count += set.size; // 제거 갯수 파악
 
       // 내리기
-      const arr = [...set].reverse();
-      if (arr.length) {
-        for (const i of arr) {
-          bd[i][col] = '';
-        }
+      for (const i of set) {
+        bd[i][col] = '';
+      }
 
-        for (let j = m - 1; j >= 0; j--) {
-          if (!bd[j][col]) {
-            for (let k = j - 1; k >= 0; k--) {
-              if (bd[k][col]) {
-                bd[j][col] = bd[k][col];
-                bd[k][col] = '';
-                break;
-              }
+      for (let j = m - 1; j >= 0; j--) {
+        if (!bd[j][col]) {
+          for (let k = j - 1; k >= 0; k--) {
+            if (bd[k][col]) {
+              bd[j][col] = bd[k][col];
+              bd[k][col] = '';
+              break;
             }
           }
         }

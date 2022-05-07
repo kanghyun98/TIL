@@ -1,9 +1,7 @@
+// bfs
 function solution(N, road, K) {
-  const graph = Array(N + 1)
-    .fill()
-    .map(() => Array());
-  const dist = Array(N + 1).fill(Infinity);
-  const queue = [];
+  const graph = {};
+  const dist = Array(N + 1).fill(Number.MAX_SAFE_INTEGER);
 
   // graph 만들기
   for (let i = 0; i < road.length; i++) {
@@ -11,12 +9,15 @@ function solution(N, road, K) {
     const toNode = road[i][1];
     const cost = road[i][2];
 
+    if (!graph[fromNode]) graph[fromNode] = [];
+    if (!graph[toNode]) graph[toNode] = [];
+
     graph[fromNode].push([toNode, cost]);
     graph[toNode].push([fromNode, cost]);
   }
 
   dist[1] = 0;
-  queue.push([1, 0]);
+  const queue = [[1, 0]];
 
   // 실행
   while (queue.length) {

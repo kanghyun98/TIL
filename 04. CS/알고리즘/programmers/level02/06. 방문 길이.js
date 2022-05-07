@@ -1,29 +1,18 @@
 function solution(dirs) {
-  const location = [0, 0];
-  const arr = [];
-
-  const movedLog = (order) => {
-    const before = [...location];
-
-    if (order === 'U') location[1] += location[1] !== 5 ? 1 : 0;
-    else if (order === 'D') location[1] -= location[1] !== -5 ? 1 : 0;
-    else if (order === 'L') location[0] -= location[0] !== -5 ? 1 : 0;
-    else if (order === 'R') location[0] += location[0] !== 5 ? 1 : 0;
-    else return;
-
-    return [before.join(','), location.join(',')];
-  };
+  const nowLoc = [0, 0];
+  const dir = { U: [0, 1], D: [0, -1], L: [-1, 0], R: [1, 0] };
+  const log = new Set();
 
   dirs.split('').forEach((ord) => {
-    const [a, b] = movedLog(ord);
-    if (a !== b) {
-      const res = arr.findIndex(
-        (data) =>
-          (data[0] === a || data[0] === b) && (data[1] === a || data[1] === b)
-      );
-      if (res === -1) arr.push([a, b]);
+    const [nx, ny] = [nowLoc[0] + dir[ord][0], nowLoc[1] + dir[ord][1]];
+
+    if (nx >= -5 && nx <= 5 && ny >= -5 && ny <= 5) {
+      log.add(`${nowLoc[0]} ${nowLoc[1]} ${nx} ${ny}`);
+      log.add(`${nx} ${ny} ${nowLoc[0]} ${nowLoc[1]}`);
+      nowLoc[0] = nx;
+      nowLoc[1] = ny;
     }
   });
 
-  return arr.length;
+  return log.size / 2;
 }

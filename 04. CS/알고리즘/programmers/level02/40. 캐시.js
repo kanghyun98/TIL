@@ -1,4 +1,7 @@
 function solution(cacheSize, cities) {
+  const MISS_TIME = 5;
+  const HIT_TIME = 1;
+
   const cache = [];
   let executeTime = 0;
 
@@ -6,18 +9,18 @@ function solution(cacheSize, cities) {
 
   for (const city of cities) {
     const cityName = city.toLowerCase();
-    const cacheIdx = cache.findIndex((val) => val === cityName);
+    const cacheIdx = cache.indexOf(cityName);
     if (cacheIdx !== -1) {
-      // 포함
+      // hit
       cache.splice(cacheIdx, 1);
-      cache.push(cityName);
-      executeTime += 1;
+      executeTime += HIT_TIME;
     } else {
-      // 포함x
+      // miss
       if (cache.length >= cacheSize) cache.shift();
-      cache.push(cityName);
-      executeTime += 5;
+      executeTime += MISS_TIME;
     }
+
+    cache.push(cityName);
   }
 
   return executeTime;

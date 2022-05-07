@@ -1,3 +1,4 @@
+// bfs
 function solution(n, wires) {
   const tree = {};
   for (const [a, b] of wires) {
@@ -5,7 +6,7 @@ function solution(n, wires) {
     tree[b] ? tree[b].push(a) : (tree[b] = [a]);
   }
 
-  const searchTree = (root, parent) => {
+  const bfs = (root, parent) => {
     let count = 0;
     const queue = [root];
     const isVisited = [];
@@ -24,10 +25,9 @@ function solution(n, wires) {
     return count;
   };
 
-  // 완전 탐색
   let answer = n;
   for (const [a, b] of wires) {
-    const diff = Math.abs(searchTree(a, b) - searchTree(b, a));
+    const diff = Math.abs(n - bfs(b, a) * 2);
     answer = answer > diff ? diff : answer;
   }
 
