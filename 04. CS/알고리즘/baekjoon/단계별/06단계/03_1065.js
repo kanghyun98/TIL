@@ -40,7 +40,7 @@ rl.on('line', function (input) {
     return result;
   };
 
-  // 1 ~ n 중 한수의 갯수 파악
+  // 1 ~ n 중 한수의 개수 파악
   const countHansuFunc = (n) => {
     let count = 0;
 

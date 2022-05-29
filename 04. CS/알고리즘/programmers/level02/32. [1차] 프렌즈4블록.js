@@ -27,7 +27,7 @@ function solution(m, n, board) {
     const beforeCount = count;
 
     colArr.forEach((set, col) => {
-      count += set.size; // 제거 갯수 파악
+      count += set.size; // 제거 개수 파악
 
       // 내리기
       for (const i of set) {

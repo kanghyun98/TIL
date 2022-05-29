@@ -15,7 +15,7 @@ const arr = list[0].split(' ');
 const stack = [];
 const result = Array(arr.length).fill(-1).map(Number);
 
-// 각 숫자의 갯수 파악
+// 각 숫자의 개수 파악
 const dict = {};
 arr.forEach((num) => {
   dict[num] = (dict[num] || 0) + 1;

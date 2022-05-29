@@ -1,4 +1,4 @@
-// 소수의 갯수 구하기
+// 소수의 개수 구하기
 // 각 숫자마다 2 ~ n-1 로 나누어 하나라도 나머지가 0이면 false
 
 const readline = require('readline');

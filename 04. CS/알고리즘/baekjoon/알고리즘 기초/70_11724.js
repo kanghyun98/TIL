@@ -11,7 +11,7 @@ const inputList = fs.readFileSync('/dev/stdin').toString().trim().split('\n');
 
 const [info, ...list] = inputList;
 
-// 정점 갯수: N, 간선의 갯수: M
+// 정점 개수: N, 간선의 개수: M
 const [N, M] = info.split(' ').map(Number);
 
 const arr = [...Array(N + 1)].map(() => []);
