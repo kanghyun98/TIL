@@ -1,14 +1,6 @@
 function solution(s) {
-  let countP = 0,
-    countY = 0;
+  const countP = (s.match(/p/gi) || []).length;
+  const countY = (s.match(/y/gi) || []).length;
 
-  const arr = s.match(/p|y/gi);
-  if (arr) {
-    arr.forEach((spell) => {
-      if (spell.toLowerCase() === 'p') countP++;
-      else countY++;
-    });
-  }
-
-  return countP === countY ? true : false;
+  return countP === countY;
 }

@@ -28,12 +28,12 @@ function solution(orders, course) {
   // course 개수 별로 돌리기
   course.forEach((courseCount) => {
     let maxArr = [];
-    let maxNum = 0;
+    let maxNum = 2;
 
     const newMenus = getComb(courseCount);
 
     Object.keys(newMenus).forEach((key) => {
-      if (newMenus[key] >= 2 && newMenus[key] >= maxNum) {
+      if (newMenus[key] >= maxNum) {
         newMenus[key] === maxNum ? maxArr.push(key) : (maxArr = [key]);
         maxNum = newMenus[key];
       }

@@ -1,5 +1,7 @@
 function solution(rows, columns, queries) {
   const answer = [];
+
+  // 기본 배열 만들기
   const arr = [];
   for (let i = 1; i <= rows; i++) {
     arr.push([...Array(columns)].map((_, j) => columns * (i - 1) + (j + 1)));

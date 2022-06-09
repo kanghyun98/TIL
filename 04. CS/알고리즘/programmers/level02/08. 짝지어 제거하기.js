@@ -2,8 +2,7 @@
 function solution(s) {
   const stack = [];
 
-  const len = s.length;
-  for (let i = 0; i < len; i++) {
+  for (let i = 0; i < s.length; i++) {
     stack[stack.length - 1] !== s[i] ? stack.push(s[i]) : stack.pop();
   }
 

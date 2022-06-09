@@ -1,7 +1,7 @@
 // 남은 작업일을 배열로 만든 뒤, 순회하며 결과 생성 O(N)
 function solution(progresses, speeds) {
   const result = [0];
-  let workDays = progresses.map((progress, index) =>
+  const workDays = progresses.map((progress, index) =>
     Math.ceil((100 - progress) / speeds[index])
   );
 
