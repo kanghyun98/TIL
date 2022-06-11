@@ -10,6 +10,8 @@ function solution(n) {
     for (let j = i - 4; j >= 0; j -= 2) {
       arr[i] += arr[j] * 2;
     }
+
+    arr[i] %= 1000000007;
   }
 
   return arr[n];

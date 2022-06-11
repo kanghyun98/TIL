@@ -9,7 +9,5 @@ function solution(n) {
     arr[i] = (arr[i - 1] + arr[i - 2]) % 1000000007;
   }
 
-  arr[i] %= 1000000007;
-
   return arr[n];
 }
