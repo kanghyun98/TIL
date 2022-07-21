@@ -1,0 +1,16 @@
+{
+  "name": "test-code-study",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/kanghyun98/TDD-study.git",
+  "author": "kanghyun98 <lkh981107@gmail.com>",
+  "license": "MIT",
+  "dependencies": {},
+  "scripts": {
+    "test": "jest --watch --verbose"
+  },
+  "devDependencies": {
+    "jest": "^28.1.3",
+    "@types/jest": "^28.1.6"
+  }
+}
