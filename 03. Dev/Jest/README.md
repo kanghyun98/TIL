@@ -40,3 +40,5 @@ Unit Test → Integration Test → E2E Test(end-to-end)
 ## 참고 자료
 
 - https://jestjs.io
+- https://jestjs.io/docs/tutorial-react
+- https://reactjs.org/docs/testing.html
