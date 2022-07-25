@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Navbar snapshot 1`] = `
+<div>
+  <div
+    class="navbar"
+  >
+    <i
+      class="navbar-logo fas fa-leaf"
+    />
+    <span>
+      Todo App
+    </span>
+    <span
+      class="navbar-count"
+      data-testid="total-count"
+    />
+  </div>
+</div>
+`;

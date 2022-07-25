@@ -16,7 +16,7 @@ const AddForm = memo((props) => {
         ref={inputRef}
         type="text"
         className="add-input"
-        placeholder="To-do"
+        placeholder="Todo"
       />
       <button className="add-button">Add</button>
     </form>

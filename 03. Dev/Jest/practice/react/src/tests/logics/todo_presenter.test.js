@@ -1,4 +1,4 @@
-import TodoPresenter from '../todo_presenter.js';
+import TodoPresenter from '../../logics/todo_presenter.js';
 
 describe('TodoPresenter', () => {
   const todos = [

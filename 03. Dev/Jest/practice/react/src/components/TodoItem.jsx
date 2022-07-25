@@ -15,15 +15,31 @@ const TodoItem = memo(({ todo, onIncrement, onDecrement, onDelete }) => {
 
   return (
     <li className="todo">
-      <span className="todo-name">{todo.name}</span>
-      <span className="todo-count">{todo.count}</span>
-      <button className="todo-button todo-increase" onClick={handleIncrement}>
+      <span className="todo-name" data-testid="todo-name">
+        {todo.name}
+      </span>
+      <span className="todo-count" data-testid="todo-count">
+        {todo.count}
+      </span>
+      <button
+        className="todo-button todo-increase"
+        title="increase"
+        onClick={handleIncrement}
+      >
         <i className="fas fa-plus-square"></i>
       </button>
-      <button className="todo-button todo-decrease" onClick={handleDecrement}>
+      <button
+        className="todo-button todo-decrease"
+        title="decrease"
+        onClick={handleDecrement}
+      >
         <i className="fas fa-minus-square"></i>
       </button>
-      <button className="todo-button todo-delete" onClick={handleDelete}>
+      <button
+        className="todo-button todo-delete"
+        title="delete"
+        onClick={handleDelete}
+      >
         <i className="fas fa-trash"></i>
       </button>
     </li>

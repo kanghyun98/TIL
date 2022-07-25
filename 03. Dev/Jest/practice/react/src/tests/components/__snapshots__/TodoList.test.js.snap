@@ -1,0 +1,109 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TodoList snapshot 1`] = `
+<div>
+  <form
+    class="add-form"
+  >
+    <input
+      class="add-input"
+      placeholder="Todo"
+      type="text"
+    />
+    <button
+      class="add-button"
+    >
+      Add
+    </button>
+  </form>
+  <ul
+    class="todos"
+  >
+    <li
+      class="todo"
+    >
+      <span
+        class="todo-name"
+        data-testid="todo-name"
+      >
+        javascript
+      </span>
+      <span
+        class="todo-count"
+        data-testid="todo-count"
+      >
+        1
+      </span>
+      <button
+        class="todo-button todo-increase"
+        title="increase"
+      >
+        <i
+          class="fas fa-plus-square"
+        />
+      </button>
+      <button
+        class="todo-button todo-decrease"
+        title="decrease"
+      >
+        <i
+          class="fas fa-minus-square"
+        />
+      </button>
+      <button
+        class="todo-button todo-delete"
+        title="delete"
+      >
+        <i
+          class="fas fa-trash"
+        />
+      </button>
+    </li>
+    <li
+      class="todo"
+    >
+      <span
+        class="todo-name"
+        data-testid="todo-name"
+      >
+        typescript
+      </span>
+      <span
+        class="todo-count"
+        data-testid="todo-count"
+      >
+        4
+      </span>
+      <button
+        class="todo-button todo-increase"
+        title="increase"
+      >
+        <i
+          class="fas fa-plus-square"
+        />
+      </button>
+      <button
+        class="todo-button todo-decrease"
+        title="decrease"
+      >
+        <i
+          class="fas fa-minus-square"
+        />
+      </button>
+      <button
+        class="todo-button todo-delete"
+        title="delete"
+      >
+        <i
+          class="fas fa-trash"
+        />
+      </button>
+    </li>
+  </ul>
+  <button
+    class="todos-reset"
+  >
+    Reset All
+  </button>
+</div>
+`;
