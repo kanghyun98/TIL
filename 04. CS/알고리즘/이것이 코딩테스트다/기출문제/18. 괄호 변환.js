@@ -12,7 +12,7 @@ function makeRightBracket(str) {
   }
 
   const splitPoint = findPointForSplit(str); // 2
-  const isRight = str[0] === '(';
+  const isRight = checkRightBrackets(str);
 
   const u = str.slice(0, splitPoint + 1);
   const v = makeRightBracket(str.slice(splitPoint + 1));
@@ -22,6 +22,11 @@ function makeRightBracket(str) {
 
 function isEmpty(str) {
   return str.length === 0;
+}
+
+// 분리되지 않는 균형잡힌 괄호 문자열이 들어온 경우에만 올바른 괄호 문자열인지 확인
+function checkRightBrackets(str) {
+  return str[0] === '(';
 }
 
 // 두 "균형잡힌 괄호 문자열" u, v로 분리하는 지점 구하기 (u: 더 이상 분리 X, v: 빈 문자열 가능)
