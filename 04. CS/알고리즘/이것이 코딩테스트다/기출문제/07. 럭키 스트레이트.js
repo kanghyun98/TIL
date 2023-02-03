@@ -17,8 +17,8 @@ rl.on('line', function (input) {
   const strNLen = strN.length;
   const halfPoint = strNLen / 2;
 
-  const firNums = strN.slice(0, N).split('').map(Number);
-  const secNums = strN.slice(N).split('').map(Number);
+  const firNums = strN.slice(0, halfPoint).split('').map(Number);
+  const secNums = strN.slice(halfPoint).split('').map(Number);
 
   const firSum = firNums.reduce((acc, cur) => acc + cur, 0);
   const secSum = secNums.reduce((acc, cur) => acc + cur, 0);
