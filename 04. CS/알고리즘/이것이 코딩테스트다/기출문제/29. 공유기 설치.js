@@ -16,7 +16,7 @@ rl.on('line', function (input) {
   const [N, C] = info.split(' ').map(Number);
   const nums = arr.map(Number).sort((a, b) => a - b); // 정렬
 
-  let start = nums[1] - nums[0];
+  let start = 1;
   let end = nums[N - 1] - nums[0];
   let answer = 0;
 
@@ -26,6 +26,7 @@ rl.on('line', function (input) {
     let count = 1;
 
     for (let i = 1; i < N; i++) {
+      // 다음 집이 최대 거리보다 멀리 있는 경우 설치
       if (nums[i] >= target + mid) {
         target = nums[i];
         count += 1;
