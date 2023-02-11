@@ -1,0 +1,14 @@
+{
+  "name": "mono-yarn",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "projects/*"
+  ],
+  "scripts": {
+    "common": "yarn workspace @hyun/common",
+    "mobile": "yarn workspace @hyun/mobile",
+    "web": "yarn workspace @hyun/web"
+  }
+}
