@@ -8,8 +8,6 @@ function solution(n, words) {
     if (dictionary[words[i]]) {
       turn = i + 1;
       break;
-    } else {
-      dictionary[words[i]] = true;
     }
 
     // 끝말 잇지 못함
@@ -17,6 +15,8 @@ function solution(n, words) {
       turn = i + 1;
       break;
     }
+
+    dictionary[words[i]] = true;
   }
 
   const wrongTime = Math.ceil(turn / n);

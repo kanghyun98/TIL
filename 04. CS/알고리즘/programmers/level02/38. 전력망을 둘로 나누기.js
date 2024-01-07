@@ -27,7 +27,7 @@ function solution(n, wires) {
 
   let answer = n;
   for (const [a, b] of wires) {
-    const diff = Math.abs(n - bfs(b, a) * 2);
+    const diff = Math.abs(n - bfs(a, b) * 2);
     answer = answer > diff ? diff : answer;
   }
 
